@@ -19,9 +19,6 @@ namespace SpaceOpera.Mechanics
             }
             return _instance;
         }
-
-        // Finally, any singleton should define some business logic, which can
-        // be executed on its instance.
     }
 
 }

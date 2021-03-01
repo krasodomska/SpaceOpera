@@ -7,34 +7,34 @@ namespace SpaceOpera.Mechanics
     class Ship
     {
         string name;
-        int baseHp;
-        int modifiedHp;
-        int currentHp;
+        TriStepValue hp;
         int price;
-        int shild;
-        int shildTime;
+        TriStepValue shield;
+        int shieldTime;
 
         List<Skill> skills;
         LinkedList<Module> currentModules;
         Dictionary<Size, int> availablePlace;
 
-        public Ship(string name, int baseHp, int price, List<Skill> skills, Dictionary<Size, int> availablePlace)
+        public Ship(string name, TriStepValue hp, int price, List<Skill> skills, Dictionary<Size, int> availablePlace)
         {
+            this.hp = hp;
             this.name = name;
-            this.baseHp = baseHp;
             this.price = price;
             this.skills = skills;
             this.availablePlace = availablePlace;
+            this.shield = new TriStepValue(0, 0, 0);
         }
 
-        public Ship(string name, int baseHp, int price, List<Skill> skills, Dictionary<Size, int> availablePlace, LinkedList<Module> currentModules)
+        public Ship(string name, TriStepValue hp, int price, List<Skill> skills, Dictionary<Size, int> availablePlace, LinkedList<Module> currentModules)
         {
             this.name = name;
-            this.baseHp = baseHp;
+            this.hp=hp;
             this.price = price;
             this.skills = skills;
             this.availablePlace = availablePlace;
             this.currentModules = currentModules;
+            this.shield = new TriStepValue(0, 0, 0);
         }
 
 
