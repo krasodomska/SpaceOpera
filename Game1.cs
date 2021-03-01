@@ -20,7 +20,14 @@ namespace SpaceOpera
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Debug.WriteLine("aga");
+            Mechanics.Skill skill = new Mechanics.Skill(Mechanics.SkillName.dodging, 4, 0);
+            Debug.WriteLine(skill.GetName());
+            Debug.WriteLine(skill.roll());
+            Debug.WriteLine(skill.roll());
+            Debug.WriteLine(skill.roll());
+            Debug.WriteLine(skill.roll());
+            Debug.WriteLine(skill.roll());
+            Debug.WriteLine(skill.roll());
             base.Initialize();
         }
 
