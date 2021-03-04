@@ -7,18 +7,18 @@ namespace SpaceOpera.Mechanics
 {
     class Skill
     {
-        private SkillName name;
-        private int modifier;
-        private int value;
+        public Skill( int value, int modifier)
+        {
+            Modifier = modifier;
+            Value = value;
+        }
+
+        public int Modifier { get; set; }
+        public int Value { get; set; }
 
         
 
-        public Skill(SkillName name, int value, int modifier)
-        {
-            this.SetName(name);
-            this.SetValue(value);
-            this.SetModifier(modifier);
-        }
+
 
 
         public int roll()
@@ -28,43 +28,12 @@ namespace SpaceOpera.Mechanics
             int baseRoll;
             while (rollAgain)
             {
-                baseRoll = Utility.GetInstance().random.Next(1, GetValue() + 1);
+                baseRoll = Utility.GetInstance().random.Next(1, Value + 1);
                 result += baseRoll;
-                if (baseRoll != GetValue()) rollAgain = false;
+                if (baseRoll != Value) rollAgain = false;
             }
-            return result + GetModifier();
+            return result + Modifier;
         }
-
-        //getters and setters
-        public SkillName GetName()
-        {
-            return name;
-        }
-
-        public void SetName(SkillName value)
-        {
-            name = value;
-        }
-
-        public int GetModifier()
-        {
-            return modifier;
-        }
-
-        public void SetModifier(int value)
-        {
-            modifier = value;
-        }
-
-        public int GetValue()
-        {
-            return value;
-        }
-
-        public void SetValue(int value)
-        {
-            this.value = value;
-        }
-
+  
     }
 }

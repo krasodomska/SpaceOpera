@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace SpaceOpera
@@ -20,14 +21,20 @@ namespace SpaceOpera
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Mechanics.Skill skill = new Mechanics.Skill(Mechanics.SkillName.dodging, 4, 0);
-            Debug.WriteLine(skill.GetName());
-            Debug.WriteLine(skill.roll());
-            Debug.WriteLine(skill.roll());
-            Debug.WriteLine(skill.roll());
-            Debug.WriteLine(skill.roll());
-            Debug.WriteLine(skill.roll());
-            Debug.WriteLine(skill.roll());
+            Dictionary<Mechanics.SkillName, Mechanics.Skill> skill = new Dictionary<Mechanics.SkillName, Mechanics.Skill>();
+            skill.Add(Mechanics.SkillName.dodging, new Mechanics.Skill(4, 0));
+            skill.Add(Mechanics.SkillName.piloting, new Mechanics.Skill(12, 0));
+            List<Mechanics.Room> rooms = new List<Mechanics.Room>();
+            rooms.Add(new Mechanics.Room(new object(), Mechanics.Size.L, new Mechanics.Module("Cargo", Mechanics.Size.L, new Dictionary<Mechanics.SkillName, int>(), 5, 0, 0)));
+            rooms.Add(new Mechanics.Room(new object(), Mechanics.Size.L, new Mechanics.Module("Cargo", Mechanics.Size.L, new Dictionary<Mechanics.SkillName, int>(), 5, 0, 0)));
+
+
+
+            Dictionary<Mechanics.SkillName, int> skillMod = new Dictionary<Mechanics.SkillName, int>();
+            skillMod.Add(Mechanics.SkillName.dodging, 2);
+            rooms.Add(new Mechanics.Room(new object(), Mechanics.Size.L, new Mechanics.Module("Cargo", Mechanics.Size.L, skillMod, 5, 0, 0)));
+
+            Mechanics.Ship ship = new Mechanics.Ship("Alfa", new Mechanics.TriStepValue(10, 10, 10), 1000, skill, rooms);
             base.Initialize();
         }
 
