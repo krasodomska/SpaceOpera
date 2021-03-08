@@ -4,17 +4,18 @@ using System.Text;
 
 namespace SpaceOpera.Mechanics
 {
-    struct TriStepValue
+    class TriStepValue
     {
-        int baseValue;
-        int currentValue;
-        int modifiedValue;
+        public int BaseValue { get; set; }
+        public int CurrentValue { get; set; }
+        public int ModifiedValue { get; set; }
 
         public TriStepValue(int baseValue, int currentValue, int modifiedValue)
         {
-            this.baseValue = baseValue;
-            this.currentValue = currentValue;
-            this.modifiedValue = modifiedValue;
+            BaseValue = baseValue;
+            CurrentValue = currentValue;
+            ModifiedValue = modifiedValue;
         }
+
     }
 }

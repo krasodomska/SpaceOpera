@@ -6,38 +6,58 @@ namespace SpaceOpera.Mechanics
 {
     class Ship
     {
-        string name;
-        TriStepValue hp;
-        int price;
-        TriStepValue shield;
-        int shieldTime;
+        string Name { get; set; }
+        TriStepValue Hp { get; set; }
+        int Price { get; set; }
+        TriStepValue Shield { get; set; }
+        TriStepValue Cargo { get; set; }
+        int ShieldTime { get; set; }
+        Dictionary<SkillName, Skill> Skills { get; set; }
+        List<Room> Rooms { get; set; } 
 
-        List<Skill> skills;
-        LinkedList<Module> currentModules;
-        Dictionary<Size, int> availablePlace;
-
-        public Ship(string name, TriStepValue hp, int price, List<Skill> skills, Dictionary<Size, int> availablePlace)
+        public Ship(string name, TriStepValue hp, int price, Dictionary<SkillName, Skill> skills)
         {
-            this.hp = hp;
-            this.name = name;
-            this.price = price;
-            this.skills = skills;
-            this.availablePlace = availablePlace;
-            this.shield = new TriStepValue(0, 0, 0);
+            this.Hp = hp;
+            this.Name = name;
+            this.Price = price;
+            this.Skills = skills;
+
+            this.Shield = new TriStepValue(0, 0, 0);
+            this.Cargo = new TriStepValue(0, 0, 0);
+            recalculate();
         }
 
-        public Ship(string name, TriStepValue hp, int price, List<Skill> skills, Dictionary<Size, int> availablePlace, LinkedList<Module> currentModules)
+        public Ship(string name, TriStepValue hp, int price, Dictionary<SkillName, Skill> skills, List<Room> rooms)
         {
-            this.name = name;
-            this.hp=hp;
-            this.price = price;
-            this.skills = skills;
-            this.availablePlace = availablePlace;
-            this.currentModules = currentModules;
-            this.shield = new TriStepValue(0, 0, 0);
+            this.Name = name;
+            this.Hp=hp;
+            this.Price = price;
+            this.Skills = skills;
+            this.Rooms = rooms;
+            this.Shield = new TriStepValue(0, 0, 0);
+            this.Cargo = new TriStepValue(0, 0, 0);
+            recalculate();
         }
 
+        public void recalculate()
+        {
+            foreach(Room room in Rooms)
+            {
+                Module module = room.Module;
+                Hp.ModifiedValue += module.HpModification;
+                Shield.ModifiedValue += module.ShieldModification;
+                Cargo.ModifiedValue += module.CargoModificatio;
 
+                foreach(SkillName name in module.SkillModification.Keys)
+                {
+                    Skills[name].Modifier = room.Module.SkillModification[name];
+                }
+                
+            }
+            Hp.CurrentValue = Hp.ModifiedValue;
+            Shield.CurrentValue = Shield.ModifiedValue;
+            Cargo.CurrentValue = Cargo.ModifiedValue;
+        }
 
     }
 }
